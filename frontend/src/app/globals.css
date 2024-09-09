@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+/* Default style for screens 1000px and above */
+.login-bg {
+    background: white;
+}
+
+/* Style for screens below 1000px */
+@media (max-width: 1000px) {
+    .login-bg {
+        background: rgb(254,249,243);
+        background: linear-gradient(96deg, rgb(232, 221, 238) 0%, rgba(236,246,254,1) 40%, rgba(240,248,255,1) 100%);
+    }
+}
+
