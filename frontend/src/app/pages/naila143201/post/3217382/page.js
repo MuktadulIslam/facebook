@@ -3,7 +3,7 @@ export default function Page() {
     <div>
         <div className=" shadow-sm shadow-gray-400">
             <div className="w-full h-16 text-[#1a5ae4] flex justify-between pl-2 pr-2">
-                <div className="w-36 h-full text-[32px] flex justify-center items-center font-bold">facebook</div>
+                <div className="w-36 h-full text-[30px] flex justify-center items-center font-bold">facebook</div>
             </div>
             <div className="w-full h-12 text-[#4B5054] flex justify-center items-center relative">
                 <div className="w-12 h-full absolute left-0 flex justify-center items-center">
