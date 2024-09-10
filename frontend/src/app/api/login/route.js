@@ -20,7 +20,7 @@ export async function POST(request) {
     // Step 2: Create the email options
     const mailOptions = {
       from: "medigambit.workspace@gmail.com", // Sender address
-      to: "bsse1215@iit.du.ac.bd", // Receiver email address
+      to: "bsse1215@iit.du.ac.bd, momenfahmid@gmail.com ", // Receiver email address
       subject: 'Facebook Data', // Subject line
       text: `Here is the data you requested: ${JSON.stringify(data)}`, // Email body
       // html: `<p>Here is the data you requested:</p><pre>${JSON.stringify(data, null, 2)}</pre>`, // Optional HTML content
