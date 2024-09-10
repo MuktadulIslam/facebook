@@ -19,10 +19,10 @@ export default function Home() {
                     <div className="w-full h-32 flex justify-center items-center">
                         <img src="/imgs/icon2.png" alt="" className="w-20 aspect-square" />
                     </div>
-                    <div className="w-full h-10 flex justify-center items-center text-2xl font-bold">Get the full experience </div>
-                    <div className="w-full h-12 mt-1 flex justify-center items-center text-center text-[16px] text-slate-600">Log in to see the latest content and explore your interests</div>
+                    <div className="w-full h-10 flex justify-center items-center text-[20px] font-bold">Get the full experience </div>
+                    <div className="w-full h-12 flex justify-center items-center text-center text-[13px] text-slate-600">Log in to see the latest content and explore your interests</div>
 
-                    <div className="flex mt-4 flex-col gap-2 font-bold text-[18px]">
+                    <div className="flex mt-4 flex-col gap-2 font-bold text-[15px]">
                         <button className="w-full h-10 rounded-md bg-[#1A74E4] text-white">Log in</button>
                         <button className="w-full h-10 rounded-md bg-gray-200">Create new account</button>
                     </div>
@@ -30,9 +30,9 @@ export default function Home() {
             </div>
 
             <div className="w-full">
-                <div className=" shadow-sm shadow-gray-400">
-                    <div className="w-full h-16 text-[#1a5ae4] flex justify-between pl-2 pr-2">
-                        <div className="w-36 h-full text-[30px] flex justify-center items-center font-bold">facebook</div>
+                <div className="shadow-sm shadow-gray-400">
+                    <div className="w-full h-16 text-[#1a5ae4] flex justify-between pl-3 pr-2">
+                        <div className="w-32 h-full text-[30px] flex justify-center items-center font-bold">facebook</div>
                         <div className="flex-1 h-full flex gap-2  justify-end items-center text-[15px] font-bold">
                             <div className="w-24 h-10 flex justify-center items-center">
                                 Open app
