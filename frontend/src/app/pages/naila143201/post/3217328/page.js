@@ -75,9 +75,9 @@ export default function Home() {
                 </div>
 
                 <div className="w-full">
-                    <div className={`${notoSansBengali.className} w-full h-auto px-2 pt-2 text-[16px]`}>
+                    <div className={`${notoSansBengali.className} w-full h-auto px-2 pt-2 text-[15px]`}>
                         আসসালামু আলাইকুম বিজ্ঞ ভাই এবং স্যারদের। প্রথমেই ক্ষমা চেয়ে নিচ্ছি লেখাটা বড় হয়েছে তার জন্যে। আমি বৈবাহিক সুত্রে বিবাহিত আমার একজন ছেলে সন্তান আছে, আমাদের বিয়ের বয়স অলমোস্ট ৫ বছর,  ঘটনা চক্রে বিয়ের ৬ মাস অতিবাহিত হওয়ার পর আমার ফ্যামিলির সাথে বোঝাপড়ার অভার কারণে আমার ফ্যামেলি থেকে আমাকে বলা হলো আলাদা হওয়ারজন্যে যেহেতো তার সাথে প্রতিনিয়ত ঝামেলা হয়েই যাচ্ছিলো আর আমি কাজের সুত্রে অফিসে থাকার কারনে অনেক প্রবলেম হতো আমার, বিচার আর সালিশের মধ্যেই
-                        <span className={`${inter.className} text-gray-500 text-[17px]`}>....see more</span>
+                        <span className={`${inter.className} text-gray-500 text-[16px]`}>....see more</span>
                     </div>
                     <div className="w-full h-auto px-2 mt-3">
                         <img src="/imgs/reaction.png" alt="" className="w-full h-full object-contain" />
