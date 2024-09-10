@@ -33,8 +33,8 @@ export default function Home() {
                 <div className=" shadow-sm shadow-gray-400">
                     <div className="w-full h-16 text-[#1a5ae4] flex justify-between pl-2 pr-2">
                         <div className="w-36 h-full text-[30px] flex justify-center items-center font-bold">facebook</div>
-                        <div className="flex-1 h-full flex gap-2  justify-end items-center text-[16px] font-bold">
-                            <div className="w-20 h-10 flex justify-center items-center">
+                        <div className="flex-1 h-full flex gap-2  justify-end items-center text-[15px] font-bold">
+                            <div className="w-24 h-10 flex justify-center items-center">
                                 Open app
                             </div>
                             <div className="w-20 h-10 rounded-md flex justify-center items-center bg-[#1A74E4] text-white">Log in</div>
